@@ -1,0 +1,115 @@
+/* Real Estate Investment Simulator - Custom Styles */
+
+/* Main container */
+.main {
+    background-color: #ffffff;
+}
+
+/* Headers */
+.main-header {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1f77b4;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.sub-header {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Metric cards */
+.metric-card {
+    background-color: #f0f2f6;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Sidebar styling */
+.sidebar .sidebar-content {
+    background-color: #f8f9fa;
+}
+
+/* Button styling */
+.stButton>button {
+    width: 100%;
+    background-color: #1f77b4;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.stButton>button:hover {
+    background-color: #1557a0;
+    border-color: #1557a0;
+}
+
+/* Tables */
+.dataframe {
+    font-size: 0.9rem;
+}
+
+.dataframe thead tr th {
+    background-color: #1f77b4 !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Charts */
+.plotly-chart {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Info boxes */
+.stInfo {
+    background-color: #e3f2fd;
+    border-left: 4px solid #1f77b4;
+}
+
+.stSuccess {
+    background-color: #e8f5e9;
+    border-left: 4px solid #4caf50;
+}
+
+.stWarning {
+    background-color: #fff3e0;
+    border-left: 4px solid #ff9800;
+}
+
+.stError {
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    height: 50px;
+    padding: 0 24px;
+    background-color: #f0f2f6;
+    border-radius: 4px 4px 0 0;
+}
+
+.stTabs [aria-selected="true"] {
+    background-color: #1f77b4;
+    color: white;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: #666;
+    padding: 2rem 0;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 3rem;
+}
