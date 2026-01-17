@@ -185,15 +185,20 @@ rental_summary = rental_result['summary']
 rental_monthly_expenses = (rental_df['true_cost'] + rental_df['principal_payment']).tolist()
 
 # Stock investment parameters
-stock_params = {
-    'initial_investment': rental_summary['initial_payment'],
-    'stock_return_rate': st.session_state.params['stock_return_rate'],
-    'dividend_yield': st.session_state.params['dividend_yield'],
-    'tax_bracket': st.session_state.params['tax_bracket'],
-    'years': st.session_state.params['years']
-}
+try:
+    stock_params = {
+        'initial_investment': rental_summary['initial_payment'],
+        'stock_return_rate': st.session_state.params['stock_return_rate'],
+        'dividend_yield': st.session_state.params['dividend_yield'],
+        'tax_bracket': st.session_state.params['tax_bracket'],
+        'years': st.session_state.params['years']
+    }
 
-stock_result = simulate_stock_investment(stock_params, rental_monthly_expenses)
+    stock_result = simulate_stock_investment(stock_params, rental_monthly_expenses)
+except Exception as e:
+    st.error(f"Error in stock simulation: {str(e)}")
+    st.stop()
+
 stock_df = stock_result['monthly_df']
 stock_summary = stock_result['summary']
 
