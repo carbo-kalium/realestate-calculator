@@ -215,15 +215,18 @@ with col1:
     )
 
 with col2:
+    rental_proceeds = rental_summary['final_net_proceeds']
+    stock_proceeds = stock_summary['final_net_proceeds']
     st.metric(
-        "Final Property Value",
-        f"${rental_summary['final_property_value']:,.0f}"
+        "Rental Property Net Proceeds",
+        f"${rental_proceeds:,.0f}"
     )
 
 with col3:
     st.metric(
-        "Net Proceeds",
-        f"${rental_summary['final_net_proceeds']:,.0f}"
+        "Stock Investment Net Proceeds",
+        f"${stock_proceeds:,.0f}",
+        delta=f"${stock_proceeds - rental_proceeds:,.0f}"
     )
 
 st.divider()
