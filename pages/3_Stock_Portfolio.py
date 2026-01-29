@@ -300,12 +300,13 @@ with tab1:
                     if tags and pd.notna(tags):
                         tag_list = [t.strip() for t in str(tags).split(',') if t.strip()]
                         if tag_list:
-                            for tag in tag_list[:5]:
-                                st.markdown(
-                                    f'<div style="background-color: #e0e0e0; padding: 2px 8px; border-radius: 12px; '
-                                    f'font-size: 0.75em; margin-bottom: 3px; display: inline-block; white-space: nowrap;">{tag}</div>',
-                                    unsafe_allow_html=True
-                                )
+                            # Render all tags in a single HTML block for better display
+                            tags_html = ''.join([
+                                f'<div style="background-color: #e0e0e0; padding: 3px 8px; border-radius: 12px; '
+                                f'font-size: 0.75em; margin-bottom: 4px; word-wrap: break-word;">{tag}</div>'
+                                for tag in tag_list
+                            ])
+                            st.markdown(tags_html, unsafe_allow_html=True)
                 
                 with detail_cols[1]:
                     # Display top 5 news with full headlines (no truncation)

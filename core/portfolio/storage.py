@@ -218,12 +218,16 @@ class PortfolioStorage:
     
     def save_indicators(self, df: pd.DataFrame):
         """Save computed indicators to CSV."""
-        df.to_csv(self.indicators_path, index=False)
+        df.to_csv(self.indicators_path, index=False, quoting=1)  # quoting=1 is csv.QUOTE_ALL
     
     def load_indicators(self) -> Optional[pd.DataFrame]:
         """Load computed indicators from CSV."""
         if self.indicators_path.exists():
-            return pd.read_csv(self.indicators_path)
+            df = pd.read_csv(self.indicators_path)
+            # Ensure exposure_tags column is treated as string (not NaN)
+            if 'exposure_tags' in df.columns:
+                df['exposure_tags'] = df['exposure_tags'].fillna('').astype(str)
+            return df
         return None
     
     def get_sparkline_path(self, ticker: str) -> Path:
