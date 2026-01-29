@@ -15,6 +15,7 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, List, Dict, Any
+import csv
 
 
 class PortfolioStorage:
@@ -218,7 +219,7 @@ class PortfolioStorage:
     
     def save_indicators(self, df: pd.DataFrame):
         """Save computed indicators to CSV."""
-        df.to_csv(self.indicators_path, index=False, quoting=1)  # quoting=1 is csv.QUOTE_ALL
+        df.to_csv(self.indicators_path, index=False, quoting=csv.QUOTE_ALL)
     
     def load_indicators(self) -> Optional[pd.DataFrame]:
         """Load computed indicators from CSV."""
