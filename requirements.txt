@@ -10,6 +10,14 @@ numpy>=1.24.0
 
 # Visualization
 plotly>=5.17.0
+matplotlib>=3.7.0
+
+# Stock data and analysis (for Stock Portfolio Dashboard)
+yfinance>=0.2.28
+requests>=2.31.0
+
+# Timezone handling
+pytz>=2023.3
 
 # Note: All these packages should already be installed in the 'trader' virtual environment
 # This file serves as documentation of required packages

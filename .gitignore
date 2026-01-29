@@ -52,7 +52,10 @@ Thumbs.db
 # Project specific
 *.csv
 *.xlsx
-*.json
 !app.py
 !pages/
 !core/
+
+# Stock Portfolio Dashboard data (cached locally, not committed)
+data/
+*.db
