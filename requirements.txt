@@ -19,5 +19,5 @@ requests>=2.31.0
 # Timezone handling
 pytz>=2023.3
 
-# Note: All these packages should already be installed in the 'trader' virtual environment
-# This file serves as documentation of required packages
+# Note: Railway uses this file to install all dependencies
+# Make sure all packages are listed here for proper deployment
