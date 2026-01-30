@@ -28,23 +28,36 @@ class PortfolioStorage:
         Args:
             data_dir: Directory for storing data files. Defaults to ./data/portfolio/
         """
-        if data_dir is None:
-            data_dir = Path(__file__).parent.parent.parent / 'data' / 'portfolio'
+        import logging
+        logger = logging.getLogger(__name__)
         
-        self.data_dir = Path(data_dir)
-        self.data_dir.mkdir(parents=True, exist_ok=True)
-        
-        self.db_path = self.data_dir / 'portfolio.db'
-        self.price_cache_dir = self.data_dir / 'price_cache'
-        self.sparkline_dir = self.data_dir / 'sparklines'
-        self.news_cache_dir = self.data_dir / 'news_cache'
-        self.indicators_path = self.data_dir / 'indicators.csv'
-        
-        self.price_cache_dir.mkdir(exist_ok=True)
-        self.sparkline_dir.mkdir(exist_ok=True)
-        self.news_cache_dir.mkdir(exist_ok=True)
-        
-        self._init_db()
+        try:
+            if data_dir is None:
+                data_dir = Path(__file__).parent.parent.parent / 'data' / 'portfolio'
+            
+            self.data_dir = Path(data_dir)
+            logger.info(f"Creating data directory: {self.data_dir}")
+            self.data_dir.mkdir(parents=True, exist_ok=True)
+            
+            self.db_path = self.data_dir / 'portfolio.db'
+            self.price_cache_dir = self.data_dir / 'price_cache'
+            self.sparkline_dir = self.data_dir / 'sparklines'
+            self.news_cache_dir = self.data_dir / 'news_cache'
+            self.indicators_path = self.data_dir / 'indicators.csv'
+            
+            logger.info(f"Creating subdirectories in {self.data_dir}")
+            self.price_cache_dir.mkdir(exist_ok=True)
+            self.sparkline_dir.mkdir(exist_ok=True)
+            self.news_cache_dir.mkdir(exist_ok=True)
+            
+            logger.info(f"Initializing database at {self.db_path}")
+            self._init_db()
+            logger.info("PortfolioStorage initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize PortfolioStorage: {e}")
+            logger.error(f"Data directory: {data_dir}")
+            logger.error(f"Current working directory: {Path.cwd()}")
+            raise
     
     def _init_db(self):
         """Initialize SQLite database with portfolio table."""
