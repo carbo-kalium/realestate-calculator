@@ -1,0 +1,16 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+# Data refresh: 6:30 PM EST (23:30 UTC) on weekdays
+startCommand = "python refresh_data.py"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+# Cron schedule: 30 23 * * 1-5 means:
+# - 30: minute 30
+# - 23: hour 23 (UTC) = 6:30 PM EST
+# - *: every day
+# - *: every month
+# - 1-5: Monday to Friday
+cron = "30 23 * * 1-5"
