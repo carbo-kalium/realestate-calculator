@@ -1,0 +1,34 @@
+name: Refresh News Headlines
+
+on:
+  schedule:
+    # Run 3 times daily, every day including weekends
+    # 8:00 AM EST (13:00 UTC) - Before market open
+    - cron: '0 13 * * *'
+    # 1:00 PM EST (18:00 UTC) - Midday
+    - cron: '0 18 * * *'
+    # 6:30 PM EST (23:30 UTC) - After market close
+    - cron: '30 23 * * *'
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  refresh-news:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Refresh news headlines
+        run: python refresh_news.py
+        env:
+          # Add any API keys if needed (currently not required for TickerTick)
+          TICKERTICK_API_KEY: ${{ secrets.TICKERTICK_API_KEY }}
