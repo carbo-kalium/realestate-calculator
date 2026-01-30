@@ -121,7 +121,7 @@ with tab1:
                 overall_progress.progress(1.0)
                 
                 st.cache_data.clear()
-                storage.log_refresh('full_refresh', None, 'success', f"Completed for {len(ticker_list)} tickers")
+                storage.log_refresh('price_data_batch', None, 'success', f"Completed for {len(ticker_list)} tickers")
                 
                 current_step.empty()
                 overall_progress.empty()
