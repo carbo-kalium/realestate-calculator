@@ -139,9 +139,8 @@ def refresh_all_data(force: bool = False):
     logger.info(f"Duration: {duration:.1f} seconds")
     logger.info(f"Tickers processed: {len(ticker_list)}")
     logger.info(f"Price data: {price_results}")
-    logger.info(f"News: {news_results}")
     
-    storage.log_refresh('full_refresh', None, 'success',
+    storage.log_refresh('price_data_batch', None, 'success',
                         f"Completed in {duration:.1f}s for {len(ticker_list)} tickers")
 
 
