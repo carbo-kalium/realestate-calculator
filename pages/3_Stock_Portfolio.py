@@ -337,7 +337,7 @@ with tab2:
     
     st.subheader("Add New Ticker")
     
-    add_col1, add_col2, add_col3, add_col4 = st.columns([1.5, 1, 2, 2])
+    add_col1, add_col2 = st.columns([1.5, 1])
     
     with add_col1:
         new_ticker = st.text_input("Ticker Symbol", placeholder="e.g., AAPL").upper().strip()
@@ -345,11 +345,21 @@ with tab2:
     with add_col2:
         new_asset_type = st.selectbox("Asset Type", ["Stock", "ETF"])
     
-    with add_col3:
-        new_description = st.text_input("Description", placeholder="e.g., Apple Inc.")
+    # Combined description and tags field
+    combined_input = st.text_input(
+        "Description & Tags",
+        placeholder="e.g., Apple Inc. | Tech, AI, Hardware",
+        help="Format: Company Name | Tag1, Tag2, Tag3 (use | to separate description from tags)"
+    )
     
-    with add_col4:
-        new_tags = st.text_input("Exposure Tags", placeholder="e.g., Tech, AI, Growth")
+    # Parse combined input
+    if '|' in combined_input:
+        new_description, new_tags = combined_input.split('|', 1)
+        new_description = new_description.strip()
+        new_tags = new_tags.strip()
+    else:
+        new_description = combined_input.strip()
+        new_tags = ""
     
     if st.button("➕ Add Ticker", type="primary"):
         if not new_ticker:
@@ -415,16 +425,27 @@ with tab2:
                 edit_col1, edit_col2 = st.columns([3, 1])
                 
                 with edit_col1:
-                    edit_desc = st.text_input(
-                        "Description", 
-                        value=row.get('description', ''),
-                        key=f"desc_{row['ticker']}"
+                    # Combined description and tags field
+                    current_desc = row.get('description', '')
+                    current_tags = row.get('exposure_tags', '')
+                    combined_value = f"{current_desc} | {current_tags}" if current_tags else current_desc
+                    
+                    edit_combined = st.text_input(
+                        "Description & Tags",
+                        value=combined_value,
+                        key=f"combined_{row['ticker']}",
+                        help="Format: Company Name | Tag1, Tag2, Tag3"
                     )
-                    edit_tags = st.text_input(
-                        "Exposure Tags",
-                        value=row.get('exposure_tags', ''),
-                        key=f"tags_{row['ticker']}"
-                    )
+                    
+                    # Parse combined input
+                    if '|' in edit_combined:
+                        edit_desc, edit_tags = edit_combined.split('|', 1)
+                        edit_desc = edit_desc.strip()
+                        edit_tags = edit_tags.strip()
+                    else:
+                        edit_desc = edit_combined.strip()
+                        edit_tags = ""
+                    
                     edit_type = st.selectbox(
                         "Asset Type",
                         ["Stock", "ETF"],
