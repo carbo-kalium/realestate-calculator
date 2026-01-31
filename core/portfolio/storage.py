@@ -237,7 +237,7 @@ class PortfolioStorage:
     def load_indicators(self) -> Optional[pd.DataFrame]:
         """Load computed indicators from CSV."""
         if self.indicators_path.exists():
-            df = pd.read_csv(self.indicators_path)
+            df = pd.read_csv(self.indicators_path, quoting=csv.QUOTE_ALL, quotechar='"')
             # Ensure exposure_tags column is treated as string (not NaN)
             if 'exposure_tags' in df.columns:
                 df['exposure_tags'] = df['exposure_tags'].fillna('').astype(str)
