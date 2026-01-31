@@ -418,10 +418,11 @@ with tab2:
     
     with refresh_col1:
         if st.button("🔄 Refresh All Tags", type="secondary", use_container_width=True):
+            # Clear cache BEFORE recomputing to ensure fresh load
+            st.cache_data.clear()
             with st.spinner("Recomputing indicators with updated tags..."):
                 try:
                     compute_all_indicators(storage, save=True)
-                    st.cache_data.clear()
                     st.success("✅ Tags refreshed! Dashboard will update now.")
                     st.rerun()
                 except Exception as e:
@@ -479,11 +480,12 @@ with tab2:
                             description=edit_desc,
                             exposure_tags=edit_tags
                         )
+                        # Clear cache BEFORE recomputing to ensure fresh load
+                        st.cache_data.clear()
                         # Recompute indicators to include updated tags
                         with st.spinner("Updating indicators with new tags..."):
                             compute_all_indicators(storage, save=True)
                         st.success("Updated! Tags will appear on dashboard now.")
-                        st.cache_data.clear()
                         st.rerun()
                     
                     if st.button("🗑️ Remove", key=f"remove_{row['ticker']}", type="secondary"):
