@@ -413,6 +413,22 @@ with tab2:
     
     st.divider()
     
+    # Refresh tags button
+    refresh_col1, refresh_col2, refresh_col3 = st.columns([2, 2, 2])
+    
+    with refresh_col1:
+        if st.button("🔄 Refresh All Tags", type="secondary", use_container_width=True):
+            with st.spinner("Recomputing indicators with updated tags..."):
+                try:
+                    compute_all_indicators(storage, save=True)
+                    st.cache_data.clear()
+                    st.success("✅ Tags refreshed! Dashboard will update now.")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Failed to refresh tags: {e}")
+    
+    st.divider()
+    
     st.subheader("Current Portfolio")
     
     current_tickers = storage.get_all_tickers()
@@ -463,7 +479,10 @@ with tab2:
                             description=edit_desc,
                             exposure_tags=edit_tags
                         )
-                        st.success("Updated!")
+                        # Recompute indicators to include updated tags
+                        with st.spinner("Updating indicators with new tags..."):
+                            compute_all_indicators(storage, save=True)
+                        st.success("Updated! Tags will appear on dashboard now.")
                         st.cache_data.clear()
                         st.rerun()
                     
