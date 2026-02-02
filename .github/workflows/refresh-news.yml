@@ -2,12 +2,13 @@ name: Refresh News Headlines
 
 on:
   schedule:
-    # Run 2 times daily, every day including weekends
+    # Run 3 times daily, every day including weekends
     # 8:00 AM EST (13:00 UTC) - Before market open
     - cron: '0 13 * * *'
     # 1:00 PM EST (18:00 UTC) - Midday
     - cron: '0 18 * * *'
-    # Note: 6:30 PM EST refresh is handled by refresh-data.yml (combined price + news)
+    # 9:00 PM EST (02:00 UTC next day) - Evening, after price data refresh (6:30 PM EST)
+    - cron: '0 2 * * *'
   workflow_dispatch:  # Allow manual trigger from GitHub UI
 
 jobs:
